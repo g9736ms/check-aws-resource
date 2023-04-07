@@ -1,32 +1,47 @@
 package main
 
 import (
-	"../internal/env_read"
-	"../internal/slack_sender"
+	"../internal/pkg/env_read"
+	"../internal/pkg/slack_send"
+	"../lib/slack/template"
 	"fmt"
 	"log"
 )
 
+var env_file = "/tmp/test.txt"
+
 func main() {
 	// 변수 파일 읽기
-	err := env_reader.SetEnv("/tmp/test.txt")
-	if err != nil {
+	if err := root(env_file); err != nil {
 		fmt.Println(err)
 	}
 
+	log.Println("Message sent to Slack!")
+}
+
+func root(args string) error {
+	// env 를 세팅한다.
+	if err := env_reader.SetEnv(args); err != nil {
+		fmt.Println(err)
+	}
 	// 값을 가져와 사용
 	webhookurl := env_reader.GetEnv("webhookURL")
 	fmt.Println(webhookurl)
 	sender := slack_sender.HTTPSlackSender{} // 인터페이스 선
-	message := "Hello, Slack!"
+	infoMessage := template.InfoMessage("This is an info message.")
+	warnMessage := template.WarnMessage("This is a warning message.")
 
-	err = sender.SendMessage(webhookurl, message)
+	err := sender.SendMessage(webhookurl, infoMessage)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	log.Println("Message sent to Slack!")
+	err = sender.SendMessage(webhookurl, warnMessage)
+	if err != nil {
+		log.Fatal(err)
+	}
 
+	return err
 }
 
 // 파일을 읽어서 키를 가지고 올 수 있는 것을 만들자
