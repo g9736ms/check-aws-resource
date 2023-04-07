@@ -53,3 +53,18 @@ func SetEnv(filename string) error {
 func GetEnv(key string) string {
 	return os.Getenv(key)
 }
+
+/*
+func main() {
+	// Load environment variables from file
+	err := env_reader.SetEnv("/tmp/test.txt")
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	// 값을 가져와 사용
+	dbHost := env_reader.GetEnv("DB_HOST")
+	fmt.Println("DB_HOST:", dbHost)
+}
+
+*/

@@ -2,19 +2,30 @@ package main
 
 import (
 	"../internal/env_read"
+	"../internal/slack_sender"
 	"fmt"
+	"log"
 )
 
 func main() {
-	// Load environment variables from file
+	// 변수 파일 읽기
 	err := env_reader.SetEnv("/tmp/test.txt")
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	// Get the value of an environment variable
-	dbHost := env_reader.GetEnv("DB_HOST")
-	fmt.Println("DB_HOST:", dbHost)
+	// 값을 가져와 사용
+	webhookurl := env_reader.GetEnv("webhookURL")
+	fmt.Println(webhookurl)
+	sender := slack_sender.HTTPSlackSender{} // 인터페이스 선
+	message := "Hello, Slack!"
+
+	err = sender.SendMessage(webhookurl, message)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	log.Println("Message sent to Slack!")
 
 }
 
