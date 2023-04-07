@@ -1,26 +1,21 @@
 package main
 
 import (
-	"../internal/file_read"
+	"../internal/env_read"
 	"fmt"
-	"log"
 )
 
 func main() {
-	reader := file_reader.TextFileReader{}
-	path := "example.txt"
-
-	content, err := readFile(reader, path)
+	// Load environment variables from file
+	err := env_reader.SetEnv("/tmp/test.txt")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 
-	fmt.Println("File content:")
-	fmt.Println(content)
-}
+	// Get the value of an environment variable
+	dbHost := env_reader.GetEnv("DB_HOST")
+	fmt.Println("DB_HOST:", dbHost)
 
-func readFile(reader file_reader.FileReader, path string) (string, error) {
-	return reader.Read(path)
 }
 
 // 파일을 읽어서 키를 가지고 올 수 있는 것을 만들자

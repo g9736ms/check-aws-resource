@@ -14,7 +14,7 @@ func (t TextFileReader) Read(path string) (string, error) {
 	}
 	defer file.Close()
 
-	content, err := ioutil.ReadAll(file)
+	var content, err = ioutil.ReadAll(file)
 	if err != nil {
 		return "", err
 	}
