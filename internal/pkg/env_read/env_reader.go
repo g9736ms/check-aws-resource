@@ -32,6 +32,9 @@ func EnvReader(filename string) (map[string]string, error) {
 
 }
 
+// 암호화 되서 올린다.
+// ec2 에 가져올수 있다 . get ec2 tags <-
+
 // SetEnvFromFile sets environment variables from a file.
 func SetEnv(filename string) error {
 	env, err := EnvReader(filename)
@@ -54,6 +57,7 @@ func GetEnv(key string) string {
 	return os.Getenv(key)
 }
 
+// 와퍼클래스 < 찾아 봐야한다
 /*
 func main() {
 	// Load environment variables from file

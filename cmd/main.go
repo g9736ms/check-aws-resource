@@ -1,10 +1,9 @@
 package main
 
 import (
-	"../internal/pkg/aws_resources_get"
+	"../internal/app"
 	"../internal/pkg/env_read"
 	"fmt"
-	"log"
 )
 
 var env_file = "/tmp/test.txt"
@@ -15,7 +14,7 @@ func main() {
 		fmt.Println(err)
 	}
 
-	log.Println("Message sent to Slack!")
+	//log.Println("Message sent to Slack!")
 }
 
 func root(args string) error {
@@ -32,7 +31,7 @@ func root(args string) error {
 		}
 	*/
 
-	if err = test_action(); err != nil {
+	if err = action.AWSResult(); err != nil {
 		fmt.Println(err)
 	}
 
@@ -40,37 +39,16 @@ func root(args string) error {
 }
 
 func test_action() error {
-	awsClient := aws_resources.AWSEc2{}
-
-	unusedEIPs, err := awsClient.GetUnusedEIPs()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println("Unused EIPs:")
-	for _, eip := range unusedEIPs {
-		fmt.Println(eip)
-	}
-
-	unusedEBSs, err := awsClient.GetUnusedEBSs()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println("\nUnused EBSs:")
-	for _, ebs := range unusedEBSs {
-		fmt.Println(ebs)
-	}
 
 	return nil
 }
 
-// 파일을 읽어서 키를 가지고 올 수 있는 것을 만들자
-
 // aws sdk 로 쿼리 할 수 있는 부분을 만들자
 
-// 슬렉으로 보낼 부분에 대해서 토큰 값을 읽어올 수 있는 부분을 만들자
+// 금요일날 오전에 8시쯤 리포트 형태로 실행 되었으면 좋겠음
+// 이건 argo workflow으로 하면 좋을 듯 합니다 ㅎㅎ !!
 
-// 받아온 값들을 슬렉으로 보낼 부분을 만들자
-
-// 안쓰는 리소스들을 찾고싶습니다 .. 금요일날 오전에 8시쯤
+// CI/CD도 만들자 !
+// CI 는 워커플로우 사용 예정 그리고 수동으로 워커플로우를 이용할 수 있나 ? 확인해보기
+// 이 깃헙을 받아서 빌드 시켜서 우리 레포에 push시 키기
+// CD를 위한 부분 변경 하기

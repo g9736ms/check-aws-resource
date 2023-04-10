@@ -1,19 +1,13 @@
 package aws_resources
 
+// 2버전으로 해야합니다 .
 import (
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/ec2"
 )
 
-func (a AWSEc2) GetUnusedEBSs() ([]string, error) {
-	sess := session.Must(session.NewSession(&aws.Config{
-		Region: aws.String("us-west-2"), // 필요한 리전으로 변경하세요.
-	}))
-
-	svc := ec2.New(sess)
+func (a AWSClient) GetUnusedEBSs() ([]string, error) {
 	input := &ec2.DescribeVolumesInput{}
-	result, err := svc.DescribeVolumes(input)
+	result, err := a.svcEc2.DescribeVolumes(input)
 
 	if err != nil {
 		return nil, err
