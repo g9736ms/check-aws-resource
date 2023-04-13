@@ -24,14 +24,7 @@ func root(args string) error {
 		fmt.Println(err)
 	}
 
-	/*
-		// action 을 따로 빼버리고 send result 여기서 slack 이나 다른 걸로 도 보낼 수 있게 만들 수 있을듯
-		if err = action.SendResult(); err != nil {
-			fmt.Println(err)
-		}
-	*/
-
-	if err = action.AWSResult(); err != nil {
+	if err = action.MainAction(); err != nil {
 		fmt.Println(err)
 	}
 

@@ -12,7 +12,6 @@ func (a AWSClient) GetUnusedEBSs() ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	var unusedEBSs []string
 	for _, volume := range result.Volumes {
 		if *volume.State == "available" {
