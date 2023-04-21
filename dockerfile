@@ -8,8 +8,8 @@ WORKDIR /app
 COPY . .
 
 RUN go mod init github.com/g9736ms/check-aws-resource
-
-RUN go mod init github.com/aws/aws-sdk-go/aws
+RUN go get github.com/g9736ms/check-aws-resource/internal/app
+RUN go get github.com/g9736ms/check-aws-resource/internal/pkg/env_read
 
 # 의존성 패키지를 설치합니다.
 RUN go mod download
@@ -21,7 +21,9 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o check-aws-resourc
 FROM alpine:latest
 RUN apk --no-cache add ca-certificates
 WORKDIR /root/
-COPY --from=builder /app/main .
+
+# 빌더 이미지에서 실행 이미지로 바이너리를 복사합니다.
+COPY --from=builder /app/check-aws-resource .
 
 # 컨테이너가 실행될 때 실행할 명령어를 지정합니다.
 CMD ["./check-aws-resource"]
