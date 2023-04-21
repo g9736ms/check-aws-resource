@@ -1,8 +1,8 @@
 package main
 
 import (
-	"../internal/app"
-	"../internal/pkg/env_read"
+	"github.com/g9736ms/check-aws-resource/internal/app"
+	"github.com/g9736ms/check-aws-resource/internal/pkg/env_read"
 	"fmt"
 )
 
