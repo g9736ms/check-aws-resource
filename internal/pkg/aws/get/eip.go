@@ -14,7 +14,7 @@ func (a AWSClient) GetUnusedEIPs() ([]string, error) {
 
 	var unusedEIPs []string
 	for _, address := range result.Addresses {
-		if address.InstanceId == nil {
+		if address.PrivateIpAddress == nil {
 			unusedEIPs = append(unusedEIPs, *address.PublicIp)
 		}
 	}

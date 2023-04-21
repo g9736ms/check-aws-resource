@@ -1,10 +1,10 @@
 package action
 
 import (
-	"../../internal/pkg/aws/get"
-	"../../internal/pkg/env_read"
-	"../../internal/pkg/slack_send"
 	"fmt"
+	"github.com/g9736ms/check-aws-resource/internal/pkg/aws/get"
+	"github.com/g9736ms/check-aws-resource/internal/pkg/env_read"
+	"github.com/g9736ms/check-aws-resource/internal/pkg/slack_send"
 	"log"
 	"strings"
 )
